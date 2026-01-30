@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import starpodConfig from '../../starpod.config';
+import LargePlatforms from '../components/LargePlatforms.astro';
+---
+
+<Layout title="About">
+  <div class="relative z-10 px-8 lg:px-18">
+    <h1
+      class="text-white mb-4 text-2xl font-bold lg:mb-6 lg:text-5xl"
+    >
+      About the show
+    </h1>
+
+    <p class="mb-5">{starpodConfig.description}</p>
+
+    <p class="mb-5">
+      Daily Tech Feed is fully automated — an AI reads Hacker News, selects the most interesting stories,
+      and generates a concise audio summary every day. No hosts, no filler, just the tech news that matters.
+    </p>
+
+    <LargePlatforms />
+  </div>
+</Layout>
