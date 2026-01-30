@@ -5,6 +5,7 @@ import OvercastIcon from '../svgs/overcast.svg?raw';
 import PocketCastsIcon from '../svgs/pocket-casts.svg?raw';
 import SpotifyIcon from '../svgs/spotify.svg?raw';
 import YouTubeIcon from '../svgs/youtube.svg?raw';
+import AmazonMusicIcon from '../svgs/amazon-music.svg?raw';
 
 const { platforms, rssFeed } = starpodConfig;
 ---
@@ -82,6 +83,21 @@ const { platforms, rssFeed } = starpodConfig;
           YouTube
           <span class="ml-3 flex h-4 w-4 items-center">
             <Fragment set:html={YouTubeIcon} />
+          </span>
+        </span>
+      </a>
+    )
+  }
+  {
+    platforms?.amazon && (
+      <a
+        class="animated-bottom-border text-light-text-heading font-bold after:mt-4 dark:text-white"
+        href={platforms.amazon}
+      >
+        <span class="flex items-center">
+          Amazon Music
+          <span class="ml-3 flex h-4 w-4 items-center">
+            <Fragment set:html={AmazonMusicIcon} />
           </span>
         </span>
       </a>

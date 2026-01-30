@@ -48,6 +48,7 @@ export type StarpodConfig = {
     pocketCasts?: string;
     spotify?: string;
     youtube?: string;
+    amazon?: string;
   };
   /**
    * The url to the RSS feed where your podcast is hosted.

@@ -57,6 +57,15 @@ const show = await getShowInfo();
       />
     )
   }
+  {
+    platforms?.amazon && (
+      <a
+        class="gradient-icon amazon-music h-6 w-6"
+        href={platforms.amazon}
+        aria-label={`Listen to ${show.title} on Amazon Music.`}
+      />
+    )
+  }
 </div>
 
 <style>
@@ -77,5 +86,9 @@ const show = await getShowInfo();
 
   .youtube {
     mask-image: url(/images/youtube.svg);
+  }
+
+  .amazon-music {
+    mask-image: url(/images/amazon-music.svg);
   }
 </style>
