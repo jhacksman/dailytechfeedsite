@@ -66,6 +66,15 @@ const show = await getShowInfo();
       />
     )
   }
+  {
+    platforms?.podcastIndex && (
+      <a
+        class="gradient-icon podcast-index h-6 w-6"
+        href={platforms.podcastIndex}
+        aria-label={`Find ${show.title} on Podcast Index.`}
+      />
+    )
+  }
 </div>
 
 <style>
@@ -90,5 +99,9 @@ const show = await getShowInfo();
 
   .amazon-music {
     mask-image: url(/images/amazon-music.svg);
+  }
+
+  .podcast-index {
+    mask-image: url(/images/podcast-index.svg);
   }
 </style>

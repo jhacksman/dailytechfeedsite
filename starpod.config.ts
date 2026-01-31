@@ -11,6 +11,7 @@ export default defineStarpodConfig({
     apple: '',
     appleIdNumber: '',
     overcast: '',
+    podcastIndex: 'https://podcastindex.org/podcast/7678743',
     pocketCasts: '',
     spotify: 'https://open.spotify.com/show/0JnwyMvqXZQ32B9KbS37Qq',
     youtube: ''

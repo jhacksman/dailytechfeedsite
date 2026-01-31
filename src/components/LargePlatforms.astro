@@ -6,6 +6,7 @@ import PocketCastsIcon from '../svgs/pocket-casts.svg?raw';
 import SpotifyIcon from '../svgs/spotify.svg?raw';
 import YouTubeIcon from '../svgs/youtube.svg?raw';
 import AmazonMusicIcon from '../svgs/amazon-music.svg?raw';
+import PodcastIndexIcon from '../svgs/podcast-index.svg?raw';
 
 const { platforms, rssFeed } = starpodConfig;
 ---
@@ -98,6 +99,21 @@ const { platforms, rssFeed } = starpodConfig;
           Amazon Music
           <span class="ml-3 flex h-4 w-4 items-center">
             <Fragment set:html={AmazonMusicIcon} />
+          </span>
+        </span>
+      </a>
+    )
+  }
+  {
+    platforms?.podcastIndex && (
+      <a
+        class="animated-bottom-border text-light-text-heading font-bold after:mt-4 dark:text-white"
+        href={platforms.podcastIndex}
+      >
+        <span class="flex items-center">
+          Podcast Index
+          <span class="ml-3 flex h-4 w-4 items-center">
+            <Fragment set:html={PodcastIndexIcon} />
           </span>
         </span>
       </a>
