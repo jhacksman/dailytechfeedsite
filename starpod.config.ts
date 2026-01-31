@@ -8,8 +8,8 @@ export default defineStarpodConfig({
   hosts: [],
   platforms: {
     amazon: 'https://music.amazon.com/podcasts/d7a8e88e-692a-4bcc-ae0b-ff5520150abe/daily-tech-feed-hacker-news',
-    apple: '',
-    appleIdNumber: '',
+    apple: 'https://podcasts.apple.com/us/podcast/daily-tech-feed-hacker-news/id1873195460',
+    appleIdNumber: '1873195460',
     overcast: '',
     podcastIndex: 'https://podcastindex.org/podcast/7678743',
     pocketCasts: '',
