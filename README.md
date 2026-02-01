@@ -1,6 +1,6 @@
-# PDX Hackerspace Podcast Network
+# Daily Tech Feed
 
-AI-generated podcasts from Portland's hackerspace.
+AI-generated podcasts covering tech, weather, and more.
 
 ## Shows
 
