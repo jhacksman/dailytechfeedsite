@@ -49,6 +49,7 @@ export const shows: ShowConfig[] = [
       apple: 'https://podcasts.apple.com/us/podcast/dtf-raving-finch/id1873718884',
       appleIdNumber: '1873718884',
       amazon: 'https://music.amazon.com/podcasts/b6f40c3d-15b7-4be3-8ee4-08334222ec49/dtf-raving-finch',
+      podcastIndex: 'https://podcastindex.org/podcast/7681688',
       rss: 'https://podcast.pdxh.org/dtfravingfinch/feed.xml',
     },
   },
