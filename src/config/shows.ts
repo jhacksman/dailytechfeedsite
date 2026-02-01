@@ -45,6 +45,7 @@ export const shows: ShowConfig[] = [
     rssFeed: 'https://podcast.pdxh.org/dtfravingfinch/feed.xml',
     basePath: '/dtfravingfinch',
     platforms: {
+      spotify: 'https://open.spotify.com/show/5RIVfNSUQGsTVTPb2aKvOX',
       rss: 'https://podcast.pdxh.org/dtfravingfinch/feed.xml',
     },
   },
