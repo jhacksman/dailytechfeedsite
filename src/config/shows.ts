@@ -46,6 +46,8 @@ export const shows: ShowConfig[] = [
     basePath: '/dtfravingfinch',
     platforms: {
       spotify: 'https://open.spotify.com/show/5RIVfNSUQGsTVTPb2aKvOX',
+      apple: 'https://podcasts.apple.com/us/podcast/dtf-raving-finch/id1873718884',
+      appleIdNumber: '1873718884',
       rss: 'https://podcast.pdxh.org/dtfravingfinch/feed.xml',
     },
   },
