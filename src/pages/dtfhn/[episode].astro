@@ -1,18 +1,20 @@
 ---
 import { Schema } from 'astro-seo-schema';
 
-import FormattedDate from '../components/FormattedDate';
-import PlayButton from '../components/player/PlayButton';
-import FullPlayButton from '../components/FullPlayButton';
-import UFOIllustration from '../components/illustrations/UFOIllustration.astro';
-import Layout from '../layouts/Layout.astro';
-import { getAllEpisodes, getShowInfo } from '../lib/rss';
-import { dasherize } from '../utils/dasherize';
+import FormattedDate from '../../components/FormattedDate';
+import PlayButton from '../../components/player/PlayButton';
+import FullPlayButton from '../../components/FullPlayButton';
+import ShowLayout from '../../layouts/ShowLayout.astro';
+import { getAllEpisodes, getShowInfo } from '../../lib/rss';
+import { getShowConfig } from '../../config/shows';
+import { dasherize } from '../../utils/dasherize';
 
-const show = await getShowInfo();
+const showConfig = getShowConfig('dtfhn')!;
+const showInfo = await getShowInfo(showConfig.rssFeed);
 
 export async function getStaticPaths() {
-  const allEpisodes = await getAllEpisodes();
+  const showConfig = (await import('../../config/shows')).getShowConfig('dtfhn')!;
+  const allEpisodes = await getAllEpisodes(showConfig.rssFeed);
 
   return allEpisodes.flatMap((episode) => {
     const paths = [
@@ -33,18 +35,20 @@ export async function getStaticPaths() {
 
 const { episode } = Astro.props;
 
-const canonicalURL = new URL(`/${episode.episodeSlug}`, Astro.url);
+const canonicalURL = new URL(`${showConfig.basePath}/${episode.episodeSlug}`, Astro.url);
 
 const title = episode.episodeNumber
-  ? `${episode.title} - ${show.title} - Episode ${episode.episodeNumber}`
-  : `${episode.title} - ${show.title}`;
+  ? `${episode.title} - ${showInfo.title} - Episode ${episode.episodeNumber}`
+  : `${episode.title} - ${showInfo.title}`;
 ---
 
-<Layout
+<ShowLayout
   canonicalURL={canonicalURL}
   description={episode.description}
   imageUrl={episode.episodeImage}
   title={title}
+  showConfig={showConfig}
+  showInfo={showInfo}
 >
   <Schema
     slot="head"
@@ -56,7 +60,7 @@ const title = episode.episodeNumber
       description: episode.description,
       episodeNumber: episode.episodeNumber,
       url: canonicalURL.toString(),
-      image: episode.episodeImage || show.image,
+      image: episode.episodeImage || showInfo.image,
       duration: `PT${Math.floor(episode.duration / 60)}M${episode.duration % 60}S`,
       associatedMedia: {
         '@type': 'MediaObject',
@@ -65,7 +69,7 @@ const title = episode.episodeNumber
       },
       partOfSeries: {
         '@type': 'PodcastSeries',
-        name: show.title,
+        name: showInfo.title,
         url: Astro.site?.toString()
       }
     }}
@@ -128,4 +132,4 @@ const title = episode.episodeNumber
       </div>
     </div>
   </div>
-</Layout>
+</ShowLayout>

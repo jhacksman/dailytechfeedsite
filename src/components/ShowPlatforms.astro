@@ -1,0 +1,131 @@
+---
+export interface Props {
+  platforms: {
+    spotify?: string;
+    apple?: string;
+    amazon?: string;
+    overcast?: string;
+    pocketCasts?: string;
+    youtube?: string;
+    podcastIndex?: string;
+    rss?: string;
+  };
+  showTitle: string;
+}
+
+const { platforms, showTitle } = Astro.props;
+---
+
+<h3 class="section-heading hidden pt-12 pb-6 lg:block">Listen</h3>
+
+<div
+  class="mt-16 flex items-center justify-center gap-6 lg:mt-0 lg:justify-start"
+>
+  {
+    platforms?.spotify && (
+      <a
+        class="gradient-icon spotify h-6 w-6"
+        href={platforms.spotify}
+        aria-label={`Listen to ${showTitle} on Spotify.`}
+      />
+    )
+  }
+  {
+    platforms?.apple && (
+      <a
+        class="gradient-icon apple h-6 w-6"
+        href={platforms.apple}
+        aria-label={`Listen to ${showTitle} on Apple Podcasts.`}
+      />
+    )
+  }
+  {
+    platforms?.overcast && (
+      <a
+        class="gradient-icon overcast h-6 w-6"
+        href={platforms.overcast}
+        aria-label={`Listen to ${showTitle} on Overcast.`}
+      />
+    )
+  }
+  {
+    platforms?.pocketCasts && (
+      <a
+        class="gradient-icon pocket-casts h-6 w-6"
+        href={platforms.pocketCasts}
+        aria-label={`Listen to ${showTitle} on Pocket Casts.`}
+      />
+    )
+  }
+  {
+    platforms?.youtube && (
+      <a
+        class="gradient-icon youtube h-7 w-7"
+        href={platforms.youtube}
+        aria-label={`Watch ${showTitle} on YouTube.`}
+      />
+    )
+  }
+  {
+    platforms?.amazon && (
+      <a
+        class="gradient-icon amazon-music h-6 w-6"
+        href={platforms.amazon}
+        aria-label={`Listen to ${showTitle} on Amazon Music.`}
+      />
+    )
+  }
+  {
+    platforms?.podcastIndex && (
+      <a
+        class="gradient-icon podcast-index h-6 w-6"
+        href={platforms.podcastIndex}
+        aria-label={`Find ${showTitle} on Podcast Index.`}
+      />
+    )
+  }
+  {
+    platforms?.rss && (
+      <a
+        href={platforms.rss}
+        aria-label={`RSS feed for ${showTitle}`}
+        class="text-dark-icon hover:text-white transition-colors"
+        title="RSS Feed"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+          <circle cx="6.18" cy="17.82" r="2.18" />
+          <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z" />
+        </svg>
+      </a>
+    )
+  }
+</div>
+
+<style>
+  .apple {
+    mask-image: url(/images/apple.svg);
+  }
+
+  .overcast {
+    mask-image: url(/images/overcast.svg);
+  }
+  .pocket-casts {
+    mask-image: url(/images/pocket-casts.svg);
+  }
+
+  .spotify {
+    mask-image: url(/images/spotify.svg);
+  }
+
+  .youtube {
+    mask-image: url(/images/youtube.svg);
+  }
+
+  .amazon-music {
+    mask-image: url(/images/amazon-music.svg);
+  }
+
+  .podcast-index {
+    mask-image: url(/images/podcast-index.svg);
+  }
+</style>

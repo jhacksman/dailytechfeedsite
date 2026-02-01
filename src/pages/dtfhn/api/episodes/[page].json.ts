@@ -1,8 +1,10 @@
 import type { APIRoute } from 'astro';
-import { getAllEpisodes } from '../../../lib/rss';
+import { getAllEpisodes } from '../../../../lib/rss';
+import { getShowConfig } from '../../../../config/shows';
 
+const showConfig = getShowConfig('dtfhn')!;
 const episodesPerPage = 15;
-const allEpisodes = await getAllEpisodes();
+const allEpisodes = await getAllEpisodes(showConfig.rssFeed);
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   return paginate(allEpisodes, { pageSize: episodesPerPage });

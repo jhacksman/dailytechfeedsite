@@ -1,24 +1,57 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import starpodConfig from '../../starpod.config';
-import LargePlatforms from '../components/LargePlatforms.astro';
+import { Font } from 'astro:assets';
+import { shows } from '../config/shows';
+import '../styles/global.css';
 ---
 
-<Layout title="About">
-  <div class="relative z-10 px-8 lg:px-18">
-    <h1
-      class="text-white mb-4 text-2xl font-bold lg:mb-6 lg:text-5xl"
-    >
-      About the show
-    </h1>
+<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <p class="mb-5">{starpodConfig.description}</p>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <meta name="theme-color" content="#1a1a1a" />
 
-    <p class="mb-5">
-      Daily Tech Feed is fully automated — an AI reads Hacker News, selects the most interesting stories,
-      and generates a concise audio summary every day. No hosts, no filler, just the tech news that matters.
-    </p>
+    <title>About — PDX Hackerspace Podcast Network</title>
+    <meta name="description" content="About the PDX Hackerspace Podcast Network" />
 
-    <LargePlatforms />
-  </div>
-</Layout>
+    <Font cssVariable="--astro-font-inter" preload />
+  </head>
+  <body class="font-inter bg-dark-background text-dark-text-body antialiased">
+    <div class="min-h-screen flex flex-col">
+      <main class="flex-1 max-w-3xl mx-auto px-6 py-16 lg:py-24 w-full">
+        <a href="/" class="text-dark-text-body hover:text-white transition-colors text-sm mb-8 inline-block">← Back to all shows</a>
+
+        <h1 class="text-4xl font-bold text-white mb-8">About</h1>
+
+        <p class="mb-6 leading-relaxed">
+          The PDX Hackerspace Podcast Network is a collection of AI-generated podcasts
+          produced at PDX Hackerspace in Portland, Oregon.
+        </p>
+
+        <p class="mb-6 leading-relaxed">
+          Every show is fully automated — AI reads the source material, generates scripts,
+          and produces audio. No hosts, no filler.
+        </p>
+
+        <h2 class="text-2xl font-bold text-white mt-12 mb-6">Our Shows</h2>
+
+        <ul class="space-y-6">
+          {shows.map((show) => (
+            <li>
+              <a href={show.basePath} class="text-white font-semibold hover:underline">{show.title}</a>
+              <p class="mt-1 text-sm">{show.blurb}</p>
+            </li>
+          ))}
+        </ul>
+      </main>
+
+      <footer class="text-center py-8 text-sm text-dark-text-body opacity-60">
+        A PDX Hackerspace production &bull; podcast.pdxh.org
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,188 @@
+---
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import { Schema } from 'astro-seo-schema';
+
+import Dots from '../components/Dots.astro';
+import Player from '../components/Player';
+import ShowArtwork from '../components/ShowArtwork.astro';
+import ShowPlatforms from '../components/ShowPlatforms.astro';
+
+import type { ShowConfig } from '../config/shows';
+import type { Show } from '../lib/rss';
+
+import '../styles/global.css';
+
+export interface Props {
+  canonicalURL?: URL;
+  description?: string;
+  imageUrl?: string;
+  title: string;
+  showConfig: ShowConfig;
+  showInfo: Show;
+}
+
+const { imageUrl, title, showConfig, showInfo } = Astro.props;
+
+const canonicalURL =
+  Astro.props.canonicalURL ?? new URL(Astro.url.pathname, Astro.site);
+const description = Astro.props.description ?? showConfig.description;
+---
+
+<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="canonical" href={canonicalURL} />
+    <meta content={canonicalURL} property="og:url" />
+    <meta content="website" property="og:type" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#1a1a1a" />
+    <meta name="theme-color" content="#1a1a1a" />
+
+    <!-- Title -->
+    <title>{title}</title>
+    <meta content={title} property="og:title" />
+    <meta content={title} name="twitter:title" />
+
+    <!-- Description -->
+    <meta content={description} name="description" />
+    <meta content={description} property="og:description" />
+    <meta content={description} name="twitter:description" />
+
+    <!-- Image -->
+    <meta content={imageUrl ?? showInfo.image} property="og:image" />
+    <meta content="summary" name="twitter:card" />
+    <meta content={imageUrl ?? showInfo.image} name="twitter:image:src" />
+
+    <meta property="og:site_name" content={showInfo.title} />
+
+    <link rel="preload" as="image" href={showInfo.image} />
+
+    <Font cssVariable="--astro-font-inter" preload />
+
+    <Schema
+      slot="head"
+      item={{
+        '@context': 'https://schema.org',
+        '@type': 'PodcastSeries',
+        name: showInfo.title,
+        about: showConfig.blurb,
+        description: showInfo.description,
+        url: canonicalURL.toString(),
+        webFeed: showConfig.rssFeed,
+        author: {
+          '@type': 'Organization',
+          name: 'PDX Hackerspace',
+          url: canonicalURL.origin
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'PDX Hackerspace',
+          url: canonicalURL.origin
+        },
+        image: showInfo.image
+      }}
+    />
+
+    <slot name="head" />
+    <ClientRouter />
+  </head>
+  <body
+    class="font-inter bg-dark-background text-dark-text-body antialiased"
+  >
+    <header
+      class="custom-scrollbar lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120"
+      transition:persist="sidenav"
+    >
+      <div class="relative z-10 mx-auto lg:min-h-full lg:flex-auto">
+        <div
+          class="bg-dark-card m-2 rounded-lg pt-10 pb-4 lg:pt-16 lg:pb-12"
+        >
+          <ShowArtwork image={showInfo.image} homePath={showConfig.basePath} />
+
+          <div class="px-4 sm:px-6 md:px-4 lg:px-16">
+            <p
+              class="mt-8 text-center text-2xl font-bold lg:text-left text-white"
+            >
+              {showInfo.title}
+            </p>
+
+            <p class="mt-2 text-center text-lg lg:text-left">
+              {showConfig.blurb}
+            </p>
+          </div>
+
+          <div class="px-4 sm:px-6 md:px-4 lg:px-16">
+            <ShowPlatforms platforms={showConfig.platforms} showTitle={showInfo.title} />
+          </div>
+        </div>
+
+        <div class="hidden lg:block">
+          <div class="m-2 mb-2 rounded-lg bg-dark-card px-4 py-12 sm:px-6 md:px-4 lg:px-16">
+            <a class="animated-bottom-border block pt-5 after:mt-5" href="/">
+              ← All Shows
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main
+      class="bg-dark-card mx-2 mb-2 rounded-lg lg:relative lg:ml-112 lg:min-h-screen xl:ml-120"
+    >
+      <div class="relative mt-2 pt-16">
+        <div
+          class="bg-gradient-dark absolute top-0 right-0 left-0 z-0 h-80 w-full opacity-30"
+        >
+        </div>
+
+        <Dots />
+
+        <div class="max-w-4xl">
+          <div
+            class:list={[
+              'border-dark-border relative z-20 mb-12 border-b pb-6 lg:mb-16 lg:pb-10',
+              Astro.url.pathname === showConfig.basePath && 'hidden'
+            ]}
+          >
+            <div class="ml-8 lg:ml-18">
+              <nav aria-label="breadcrumbs">
+                <ol class="flex gap-2">
+                  <li>
+                    <a href={showConfig.basePath} class="text-dark-text-body hover:text-white transition-colors">
+                      {showConfig.title}
+                    </a>
+                  </li>
+                  <li class="text-dark-text-body">/</li>
+                  <li class="text-white font-semibold">{title}</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <slot />
+        </div>
+      </div>
+    </main>
+    <footer class="block lg:hidden">
+      <div class="m-2 mb-2 rounded-lg bg-dark-card px-4 py-8 sm:px-6 md:px-4 lg:px-16 text-center">
+        <a class="animated-bottom-border inline-block after:mt-2" href="/">
+          ← All Shows
+        </a>
+      </div>
+    </footer>
+    <div id="audio-player">
+      <Player client:only="preact" transition:persist="player" />
+    </div>
+  </body>
+</html>

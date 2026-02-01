@@ -1,0 +1,138 @@
+---
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import { getShowConfig } from '../../config/shows';
+import { getAllEpisodes, getShowInfo } from '../../lib/rss';
+import EpisodeList from '../../components/EpisodeList.astro';
+import ShowPlatforms from '../../components/ShowPlatforms.astro';
+import Dots from '../../components/Dots.astro';
+import Player from '../../components/Player';
+
+import '../../styles/global.css';
+
+const showConfig = getShowConfig('dtfravingfinch')!;
+
+let episodes: any[] = [];
+let showInfo: any = null;
+
+try {
+  showInfo = await getShowInfo(showConfig.rssFeed);
+  episodes = await getAllEpisodes(showConfig.rssFeed);
+} catch {
+  // Feed doesn't exist yet — show placeholder
+  showInfo = {
+    title: showConfig.title,
+    description: showConfig.description,
+    image: '/artwork.png',
+    link: '',
+  };
+}
+
+const title = showConfig.title;
+---
+
+<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1a1a1a" />
+
+    <title>{title}</title>
+    <meta name="description" content={showConfig.description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={showConfig.description} />
+
+    <Font cssVariable="--astro-font-inter" preload />
+    <ClientRouter />
+  </head>
+  <body class="font-inter bg-dark-background text-dark-text-body antialiased">
+    <header
+      class="custom-scrollbar lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120"
+      transition:persist="sidenav"
+    >
+      <div class="relative z-10 mx-auto lg:min-h-full lg:flex-auto">
+        <div class="bg-dark-card m-2 rounded-lg pt-10 pb-4 lg:pt-16 lg:pb-12">
+          <div class="px-4 sm:px-6 md:px-4 lg:px-16">
+            <div class="relative mx-auto block w-48 overflow-hidden rounded-lg sm:w-64 sm:rounded-xl lg:w-auto lg:rounded-2xl bg-dark-button flex items-center justify-center aspect-square">
+              <div class="text-center p-8">
+                <div class="text-6xl mb-4">🐦‍🔥</div>
+                <p class="text-white text-lg font-bold">Raving Finch</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-4 sm:px-6 md:px-4 lg:px-16">
+            <p class="mt-8 text-center text-2xl font-bold lg:text-left text-white">
+              {showConfig.title}
+            </p>
+            <p class="mt-1 text-center text-sm lg:text-left text-dark-text-body opacity-70">
+              Portland's Daily Weather Report
+            </p>
+            <p class="mt-2 text-center text-lg lg:text-left">
+              {showConfig.blurb}
+            </p>
+          </div>
+
+          <div class="px-4 sm:px-6 md:px-4 lg:px-16">
+            <ShowPlatforms platforms={showConfig.platforms} showTitle={showConfig.title} />
+          </div>
+        </div>
+
+        <div class="hidden lg:block">
+          <div class="m-2 mb-2 rounded-lg bg-dark-card px-4 py-12 sm:px-6 md:px-4 lg:px-16">
+            <a class="animated-bottom-border block pt-5 after:mt-5" href="/">
+              ← All Shows
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main
+      class="bg-dark-card mx-2 mb-2 rounded-lg lg:relative lg:ml-112 lg:min-h-screen xl:ml-120"
+    >
+      <div class="relative mt-2 pt-16">
+        <div class="bg-gradient-dark absolute top-0 right-0 left-0 z-0 h-80 w-full opacity-30"></div>
+        <Dots />
+
+        <div class="max-w-4xl">
+          <div class="relative z-10 px-8 lg:px-18">
+            <h1 class="text-light-text-heading text-4xl font-bold dark:text-white">
+              Episodes
+            </h1>
+
+            {episodes.length > 0 ? (
+              <EpisodeList episodes={episodes} show={showInfo} basePath={showConfig.basePath} />
+            ) : (
+              <div class="py-16 text-center">
+                <p class="text-2xl text-white mb-4">Coming Soon</p>
+                <p class="text-dark-text-body max-w-md mx-auto leading-relaxed">
+                  Every morning, a contemplative look at Portland's weather. Long pauses. Rain. Gray skies. There's a beauty in it.
+                </p>
+                <p class="text-dark-text-body mt-8 text-sm opacity-60">
+                  Subscribe to the RSS feed to be notified when episodes are available.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="block lg:hidden">
+      <div class="m-2 mb-2 rounded-lg bg-dark-card px-4 py-8 sm:px-6 md:px-4 lg:px-16 text-center">
+        <a class="animated-bottom-border inline-block after:mt-2" href="/">
+          ← All Shows
+        </a>
+      </div>
+    </footer>
+    <div id="audio-player">
+      <Player client:only="preact" transition:persist="player" />
+    </div>
+  </body>
+</html>

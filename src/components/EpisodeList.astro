@@ -7,9 +7,10 @@ import { dasherize } from '../utils/dasherize';
 export interface Props {
   episodes: Array<Episode>;
   show: Show;
+  basePath?: string;
 }
 
-const { episodes, show } = Astro.props;
+const { episodes, show, basePath = '' } = Astro.props;
 ---
 
 <ul aria-label="EpisodeList">
@@ -33,7 +34,7 @@ const { episodes, show } = Astro.props;
 
               <h2 class="text-light-text-heading my-2 text-lg font-bold dark:text-white">
                 <a
-                  href={`/${episode.episodeSlug}`}
+                  href={`${basePath}/${episode.episodeSlug}`}
                   style={
                     'view-transition-name: var(--should-vt); --vt-name: vt-' +
                     dasherize(episode.title)
@@ -58,7 +59,7 @@ const { episodes, show } = Astro.props;
 
                 <a
                   class="text-light-text-heading font-bold dark:text-white"
-                  href={`/${episode.episodeSlug}`}
+                  href={`${basePath}/${episode.episodeSlug}`}
                 >
                   Show notes
                 </a>
