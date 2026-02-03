@@ -42,7 +42,7 @@ export const shows: ShowConfig[] = [
     blurb: "Portland's daily weather report, delivered in the contemplative style of David Lynch",
     description:
       "Every morning, a contemplative look at Portland's weather. Long pauses. Rain. Gray skies. There's a beauty in it.",
-    rssFeed: 'https://podcast.pdxh.org/dtfravingfinch/feed.xml',
+    rssFeed: 'https://podcast.pdxh.org/dtfravingfinch/feed.xml?v=20260203',
     basePath: '/dtfravingfinch',
     platforms: {
       spotify: 'https://open.spotify.com/show/5RIVfNSUQGsTVTPb2aKvOX',
@@ -54,6 +54,9 @@ export const shows: ShowConfig[] = [
     },
   },
 ];
+
+// NOTE: rssFeed URLs have cache-bust params because Cloudflare caches for 7 days.
+// When feed issues arise, increment the ?v= param.
 
 export function getShowConfig(id: string): ShowConfig | undefined {
   return shows.find((s) => s.id === id);
