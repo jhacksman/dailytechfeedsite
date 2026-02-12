@@ -37,6 +37,19 @@ export const shows: ShowConfig[] = [
     },
   },
   {
+    id: 'dtfftl',
+    title: 'Daily Tech Feed: From the Labs',
+    blurb: 'Deep dives into foundational AI and ML research papers',
+    description:
+      'Daily Tech Feed: From the Labs delivers deep dives into the most important AI and machine learning research papers. Each episode breaks down a single paper — the core ideas, the technical details, and the researchers behind the work. Dispatches from the edge.',
+    rssFeed: 'https://podcast.pdxh.org/dtfftl/feed.xml',
+    basePath: '/dtfftl',
+    platforms: {
+      spotify: 'https://open.spotify.com/show/7wb7q9pM4yxIPidH1JQoss',
+      rss: 'https://podcast.pdxh.org/dtfftl/feed.xml',
+    },
+  },
+  {
     id: 'dtfravingfinch',
     title: 'Daily Tech Feed: Raving Finch',
     blurb: "Portland's daily weather report, delivered in the contemplative style of David Lynch",
