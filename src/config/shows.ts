@@ -46,6 +46,8 @@ export const shows: ShowConfig[] = [
     basePath: '/dtfftl',
     platforms: {
       spotify: 'https://open.spotify.com/show/7wb7q9pM4yxIPidH1JQoss',
+      apple: 'https://podcasts.apple.com/us/podcast/daily-tech-feed-from-the-labs/id1876696209',
+      appleIdNumber: '1876696209',
       rss: 'https://podcast.pdxh.org/dtfftl/feed.xml',
     },
   },
