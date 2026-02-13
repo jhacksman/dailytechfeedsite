@@ -140,6 +140,9 @@ export async function getAllEpisodes(feedUrl?: string): Promise<Array<Episode>> 
       )
   );
 
+  // Sort newest first
+  episodes.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+
   episodesCache.set(url, episodes);
   return episodes;
 }
