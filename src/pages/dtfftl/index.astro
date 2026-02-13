@@ -1,0 +1,21 @@
+---
+import ShowLayout from '../../layouts/ShowLayout.astro';
+import EpisodeList from '../../components/EpisodeList.astro';
+import { getAllEpisodes, getShowInfo } from '../../lib/rss';
+import { getShowConfig } from '../../config/shows';
+
+const showConfig = getShowConfig('dtfftl')!;
+const episodes = await getAllEpisodes(showConfig.rssFeed);
+const showInfo = await getShowInfo(showConfig.rssFeed);
+const title = showInfo.title;
+---
+
+<ShowLayout title={title} showConfig={showConfig} showInfo={showInfo}>
+  <div class="relative z-10 px-8 lg:px-18">
+    <h1 class="text-light-text-heading text-4xl font-bold dark:text-white">
+      Episodes
+    </h1>
+
+    <EpisodeList episodes={episodes} show={showInfo} basePath={showConfig.basePath} />
+  </div>
+</ShowLayout>

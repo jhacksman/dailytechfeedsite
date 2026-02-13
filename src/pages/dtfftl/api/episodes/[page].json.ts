@@ -1,0 +1,16 @@
+import type { APIRoute } from 'astro';
+import { getAllEpisodes } from '../../../../lib/rss';
+import { getShowConfig } from '../../../../config/shows';
+
+const showConfig = getShowConfig('dtfftl')!;
+const episodesPerPage = 15;
+const allEpisodes = await getAllEpisodes(showConfig.rssFeed);
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  return paginate(allEpisodes, { pageSize: episodesPerPage });
+}
+
+export const GET: APIRoute = async ({ props }) => {
+  const canLoadMore = props.page.currentPage < props.page.lastPage;
+  return new Response(JSON.stringify({ canLoadMore, episodes: props.page }));
+};
