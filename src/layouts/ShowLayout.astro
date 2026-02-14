@@ -150,22 +150,29 @@ const description = Astro.props.description ?? showConfig.description;
 
         <div class="max-w-4xl">
           <div
-            class:list={[
-              'border-dark-border relative z-20 mb-12 border-b pb-6 lg:mb-16 lg:pb-10',
-              Astro.url.pathname === showConfig.basePath && 'hidden'
-            ]}
+            class="border-dark-border relative z-20 mb-12 border-b pb-6 lg:mb-16 lg:pb-10"
           >
             <div class="ml-8 lg:ml-18">
-              <nav aria-label="breadcrumbs">
-                <ol class="flex gap-2">
-                  <li>
-                    <a href={showConfig.basePath} class="text-dark-text-body hover:text-white transition-colors">
-                      {showConfig.title}
-                    </a>
-                  </li>
-                  <li class="text-dark-text-body">/</li>
-                  <li class="text-white font-semibold">{title}</li>
-                </ol>
+              <nav aria-label="breadcrumbs" class="text-sm">
+                {Astro.url.pathname === showConfig.basePath || Astro.url.pathname === showConfig.basePath + '/' ? (
+                  <a href="/" class="text-dark-text-body/70 hover:text-white transition-colors">
+                    ← All Shows
+                  </a>
+                ) : (
+                  <ol class="flex items-center gap-1.5 flex-wrap">
+                    <li>
+                      <a href="/" class="text-dark-text-body/70 hover:text-white transition-colors">
+                        ← All Shows
+                      </a>
+                    </li>
+                    <li class="text-dark-text-body/40">/</li>
+                    <li>
+                      <a href={showConfig.basePath} class="text-dark-text-body/70 hover:text-white transition-colors">
+                        {showConfig.title}
+                      </a>
+                    </li>
+                  </ol>
+                )}
               </nav>
             </div>
           </div>
