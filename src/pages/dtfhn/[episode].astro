@@ -133,3 +133,10 @@ const title = episode.episodeNumber
     </div>
   </div>
 </ShowLayout>
+
+<script>
+  document.querySelectorAll(".prose a[href^=\"http\"]").forEach(a => {
+    a.setAttribute("target", "_blank");
+    a.setAttribute("rel", "noopener noreferrer");
+  });
+</script>
