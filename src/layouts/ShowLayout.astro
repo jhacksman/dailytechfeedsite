@@ -152,7 +152,10 @@ const description = Astro.props.description ?? showConfig.description;
           <div
             class="border-dark-border relative z-20 mb-12 border-b pb-6 lg:mb-16 lg:pb-10"
           >
-            <div class="ml-8 lg:ml-18">
+            <div class="ml-8 lg:ml-18 flex items-center gap-3">
+              <a href="/" class="shrink-0">
+                <img src="/favicon-512x512.png" alt="Daily Tech Feed" class="h-7 w-7 rounded" />
+              </a>
               <nav aria-label="breadcrumbs" class="text-sm">
                 {Astro.url.pathname === showConfig.basePath || Astro.url.pathname === showConfig.basePath + '/' ? (
                   <a href="/" class="text-dark-text-body/70 hover:text-white transition-colors">
