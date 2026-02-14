@@ -16,5 +16,5 @@ export default defineStarpodConfig({
     spotify: 'https://open.spotify.com/show/0JnwyMvqXZQ32B9KbS37Qq',
     youtube: ''
   },
-  rssFeed: 'https://podcast.pdxh.org/dtfhn/feed.xml'
+  rssFeed: 'https://pod.c457.org/dtfhn/feed.xml'
 });

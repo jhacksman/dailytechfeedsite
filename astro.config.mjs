@@ -38,7 +38,7 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: 'viewport'
   },
-  site: 'https://podcast.pdxh.org',
+  site: 'https://pod.c457.org',
   trailingSlash: 'never',
   integrations: [
     preact(),
