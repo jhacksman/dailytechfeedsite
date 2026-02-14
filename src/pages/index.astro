@@ -1,6 +1,8 @@
 ---
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import { shows } from '../config/shows';
+import Player from '../components/Player';
 import '../styles/global.css';
 ---
 
@@ -25,6 +27,7 @@ import '../styles/global.css';
     <meta property="og:type" content="website" />
 
     <Font cssVariable="--astro-font-inter" preload />
+    <ClientRouter />
   </head>
   <body class="font-inter bg-dark-background text-dark-text-body antialiased">
     <div class="min-h-screen flex flex-col">
@@ -75,5 +78,6 @@ import '../styles/global.css';
         A Daily Tech Feed production &bull; podcast.pdxh.org
       </footer>
     </div>
+    <Player client:only="preact" transition:persist="player" />
   </body>
 </html>
