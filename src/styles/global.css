@@ -86,3 +86,16 @@ footer:has(+ #audio-player .player) {
 @utility section-heading-underlined {
   @apply section-heading dark:border-dark-border border-b pb-4;
 }
+
+
+/* Seek links in show notes */
+.seek-link {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+  text-decoration: none !important;
+  font-size: 0.85em;
+}
+.seek-link:hover {
+  opacity: 1;
+}

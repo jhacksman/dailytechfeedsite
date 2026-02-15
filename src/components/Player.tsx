@@ -8,10 +8,54 @@ import ForwardButton from './player/ForwardButton';
 import RewindButton from './player/RewindButton';
 import Slider from './player/Slider';
 
+// Expose player bridge on window for seek-link integration
+declare global {
+  interface Window {
+    dtfPlayer?: {
+      seekTo: (seconds: number) => void;
+      playEpisode: (episode: { audio: any; episodeNumber: string; id: string; title: string }, seekSeconds?: number) => void;
+      getAudioElement: () => HTMLAudioElement | null;
+    };
+  }
+}
+
 export default function Player() {
   const audioPlayer = useRef<HTMLAudioElement | null>(null);
   const progressRef = useRef<number | null>(null);
   const [progress, setProgress] = useState(0);
+
+  // Expose bridge for vanilla JS seek-link integration
+  useEffect(() => {
+    window.dtfPlayer = {
+      seekTo(seconds: number) {
+        if (audioPlayer.current) {
+          audioPlayer.current.currentTime = seconds;
+          if (!isPlaying.value) {
+            isPlaying.value = true;
+          }
+        }
+      },
+      playEpisode(episode, seekSeconds) {
+        currentEpisode.value = episode;
+        // Wait for audio src to load, then seek
+        if (seekSeconds !== undefined) {
+          const trySeek = () => {
+            if (audioPlayer.current && audioPlayer.current.readyState >= 1) {
+              audioPlayer.current.currentTime = seekSeconds;
+              isPlaying.value = true;
+            } else {
+              setTimeout(trySeek, 100);
+            }
+          };
+          setTimeout(trySeek, 100);
+        }
+      },
+      getAudioElement() {
+        return audioPlayer.current;
+      },
+    };
+    return () => { delete window.dtfPlayer; };
+  }, []);
 
   if (currentEpisode.value === null) {
     return;

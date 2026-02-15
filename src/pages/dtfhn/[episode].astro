@@ -140,3 +140,45 @@ const title = episode.episodeNumber
     a.setAttribute("rel", "noopener noreferrer");
   });
 </script>
+
+<script define:vars={{ episodeData: { audio: episode.audio, episodeNumber: episode.episodeNumber, id: episode.id, title: episode.title } }}>
+  // Seek-link handler: click .seek-link to seek player to timestamp
+  function seekToTime(seconds) {
+    const player = window.dtfPlayer;
+    if (!player) return;
+
+    const audioEl = player.getAudioElement();
+    // If player is already playing this episode, just seek
+    if (audioEl && audioEl.src && !audioEl.paused) {
+      player.seekTo(seconds);
+    } else {
+      // Start playing this episode, then seek
+      player.playEpisode(episodeData, seconds);
+    }
+  }
+
+  // Handle click on seek links
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.seek-link[data-seek]');
+    if (link) {
+      e.preventDefault();
+      seekToTime(parseInt(link.dataset.seek, 10));
+    }
+  });
+
+  // Handle #t=NNN in URL on page load
+  const hash = window.location.hash;
+  const timeMatch = hash.match(/^#t=(\d+)$/);
+  if (timeMatch) {
+    const seconds = parseInt(timeMatch[1], 10);
+    // Wait for player component to mount
+    const waitForPlayer = () => {
+      if (window.dtfPlayer) {
+        seekToTime(seconds);
+      } else {
+        setTimeout(waitForPlayer, 200);
+      }
+    };
+    waitForPlayer();
+  }
+</script>
