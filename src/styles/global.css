@@ -91,11 +91,8 @@ footer:has(+ #audio-player .player) {
 /* Seek links in show notes */
 .seek-link {
   cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.15s;
-  text-decoration: none !important;
-  font-size: 0.85em;
+  text-decoration: underline;
 }
 .seek-link:hover {
-  opacity: 1;
+  text-decoration: underline;
 }
