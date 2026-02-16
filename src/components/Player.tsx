@@ -37,12 +37,12 @@ export default function Player() {
       },
       playEpisode(episode, seekSeconds) {
         currentEpisode.value = episode;
+        isPlaying.value = true;
         // Wait for audio src to load, then seek
         if (seekSeconds !== undefined) {
           const trySeek = () => {
             if (audioPlayer.current && audioPlayer.current.readyState >= 1) {
               audioPlayer.current.currentTime = seekSeconds;
-              isPlaying.value = true;
             } else {
               setTimeout(trySeek, 100);
             }
