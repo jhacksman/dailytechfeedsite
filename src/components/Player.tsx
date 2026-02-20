@@ -23,6 +23,8 @@ export default function Player() {
   const audioPlayer = useRef<HTMLAudioElement | null>(null);
   const progressRef = useRef<number | null>(null);
   const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   // Expose bridge for vanilla JS seek-link integration
   useEffect(() => {
@@ -57,6 +59,12 @@ export default function Player() {
     return () => { delete window.dtfPlayer; };
   }, []);
 
+  function formatTime(seconds: number): string {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
   if (currentEpisode.value === null) {
     return;
   }
@@ -68,6 +76,8 @@ export default function Player() {
       const percentage =
         (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100;
       setProgress(percentage);
+      setCurrentTime(audioPlayer.current.currentTime);
+      setDuration(audioPlayer.current.duration);
 
       const slider = document.querySelector('.slider');
       const particles = document.querySelector('.ship-particles');
@@ -155,6 +165,11 @@ export default function Player() {
                 <MuteButton />
               </div>
             </div>
+          </div>
+
+          <div class="flex justify-between px-1 text-xs tabular-nums text-slate-500 dark:text-slate-400" style={{ fontVariantNumeric: 'tabular-nums' }}>
+            <span>{formatTime(currentTime)}</span>
+            <span>{duration > 0 ? formatTime(duration) : '--:--'}</span>
           </div>
 
           <div class="hidden">
