@@ -1,4 +1,4 @@
-# CLAUDE.md - dailytechfeedsite
+# RULES.md - dailytechfeedsite
 
 ## Project
 - Astro + Preact + Tailwind CSS
