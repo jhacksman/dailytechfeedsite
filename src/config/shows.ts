@@ -58,7 +58,7 @@ export const shows: ShowConfig[] = [
     blurb: "Portland's daily weather report, delivered in the contemplative style of David Lynch",
     description:
       "Every morning, a contemplative look at Portland's weather. Long pauses. Rain. Gray skies. There's a beauty in it.",
-    rssFeed: 'https://pod.c457.org/dtfravingfinch/feed.xml?v=20260309',
+    rssFeed: 'https://pod.c457.org/dtfravingfinch/feed.xml?v=20260312',
     basePath: '/dtfravingfinch',
     platforms: {
       spotify: 'https://open.spotify.com/show/5RIVfNSUQGsTVTPb2aKvOX',
