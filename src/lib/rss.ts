@@ -81,7 +81,7 @@ export async function getAllEpisodes(feedUrl?: string): Promise<Array<Episode>> 
         published: number(),
         description: string(),
         content_encoded: optional(string()),
-        itunes_duration: union([number(), string()]),
+        itunes_duration: optional(union([number(), string()]), 0),
         itunes_episode: optional(number()),
         itunes_episodeType: optional(string(), 'full'),
         itunes_image: optional(object({ href: optional(string()) })),
