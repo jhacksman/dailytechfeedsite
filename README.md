@@ -5,7 +5,7 @@ AI-generated podcasts covering tech, research, and more.
 ## Shows
 
 - **Daily Tech Feed: Hacker News** — AI-curated top tech stories from Hacker News, delivered daily
-- **Daily Tech Feed: Raving Finch** — A daily digest of frontier-AI activity, with every source linked
+- **Daily Tech Feed: Raving Finch** — A daily read of the tech list on X, with every source linked
 
 ## Stack
 

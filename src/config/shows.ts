@@ -55,9 +55,9 @@ export const shows: ShowConfig[] = [
   {
     id: 'dtfravingfinch',
     title: 'Daily Tech Feed: Raving Finch',
-    blurb: "A daily digest of frontier-AI activity, with every source linked",
+    blurb: "A daily read of the tech list on X, with every source linked",
     description:
-      "Each morning, a curated account of what the frontier-AI community published in the last day — model releases, research papers, new tools, and the occasional correction. Claims stay attributed to whoever made them, and every original source is linked in the notes. Longer essays appear between the daily editions.",
+      "Each morning, a curated account of what a tech list on X posted in the last day — the labs, researchers and builders working on frontier AI. Model releases, research papers, new tools, and the occasional correction. Claims stay attributed to whoever made them, and every original source is linked in the notes. Longer essays appear between the daily editions.",
     rssFeed: 'https://pod.c457.org/dtfravingfinch/feed.xml?v=20260312',
     basePath: '/dtfravingfinch',
     platforms: {
