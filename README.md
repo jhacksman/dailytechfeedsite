@@ -1,11 +1,11 @@
 # Daily Tech Feed
 
-AI-generated podcasts covering tech, weather, and more.
+AI-generated podcasts covering tech, research, and more.
 
 ## Shows
 
 - **Daily Tech Feed: Hacker News** — AI-curated top tech stories from Hacker News, delivered daily
-- **Daily Tech Feed: Raving Finch** — Portland's daily weather report, delivered in the contemplative style of David Lynch
+- **Daily Tech Feed: Raving Finch** — A daily digest of frontier-AI activity, with every source linked
 
 ## Stack
 

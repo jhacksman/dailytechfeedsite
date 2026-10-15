@@ -55,9 +55,9 @@ export const shows: ShowConfig[] = [
   {
     id: 'dtfravingfinch',
     title: 'Daily Tech Feed: Raving Finch',
-    blurb: "Portland's daily weather report, delivered in the contemplative style of David Lynch",
+    blurb: "A daily digest of frontier-AI activity, with every source linked",
     description:
-      "Every morning, a contemplative look at Portland's weather. Long pauses. Rain. Gray skies. There's a beauty in it.",
+      "Each morning, a curated account of what the frontier-AI community published in the last day — model releases, research papers, new tools, and the occasional correction. Claims stay attributed to whoever made them, and every original source is linked in the notes. Longer essays appear between the daily editions.",
     rssFeed: 'https://pod.c457.org/dtfravingfinch/feed.xml?v=20260312',
     basePath: '/dtfravingfinch',
     platforms: {
